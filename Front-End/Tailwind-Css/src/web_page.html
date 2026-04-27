@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Home Page</title>
+    <link rel="stylesheet" href="output.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
+</head>
+
+<body class="bg-gray-800">
+    <nav class="relative mb-20 bg-gray-700">
+        <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+            <div class="relative flex h-12 items-center justify-between">
+
+                <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                    <!-- Mobile menu button-->
+                    <button type="button" command="--toggle" commandfor="mobile-menu"
+                        class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 hover:text-white focus:outline-2 focus:-outline-offset-1 focus:outline-indigo-500">
+                        <span class="absolute -inset-0.5"></span>
+                        <span class="sr-only">Open main menu</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon"
+                            aria-hidden="true" class="size-6 in-aria-expanded:hidden">
+                            <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon"
+                            aria-hidden="true" class="size-6 not-in-aria-expanded:hidden">
+                            <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+                    <div class="flex shrink-0 items-center">
+                        <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
+                            alt="Your Company" class="h-8 w-auto" />
+                    </div>
+
+                    <div class="hidden sm:ml-6 sm:block">
+                        <div class="flex space-x-4">
+                            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" -->
+                            <a href="#" aria-current="page"
+                                class="rounded-md bg-gray-900 px-3 py-2 text-xs font-medium text-white">Home</a>
+                            <a href="#"
+                                class="rounded-md px-3 py-2 text-xs font-medium text-gray-300 hover:bg-white/5 hover:text-white">About
+                                Me</a>
+                            <a href="#"
+                                class="rounded-md px-3 py-2 text-xs font-medium text-gray-300 hover:bg-white/5 hover:text-white">Skills</a>
+                            <a href="#"
+                                class="rounded-md px-3 py-2 text-xs font-medium text-gray-300 hover:bg-white/5 hover:text-white">Projects</a>
+                            <a href="#"
+                                class="rounded-md px-3 py-2 text-xs font-medium text-gray-300 hover:bg-white/5 hover:text-white">Contact</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="right-0 flex items-center">
+                    <img src="./photo/jihad.jpeg" alt="" class="cursor-pointer size-10 rounded-full" />
+                </div>
+            </div>
+        </div>
+
+        <el-disclosure id="mobile-menu" hidden class="block sm:hidden">
+            <div class="">
+                <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" -->
+                <a href="#" aria-current="page"
+                    class="block rounded-md bg-gray-900 px-3 py-2 text-xs font-medium text-white">Home</a>
+                <a href="#"
+                    class="block rounded-md px-3 py-2 text-xs font-medium text-gray-300 hover:bg-white/5 hover:text-white">About
+                    Me</a>
+                <a href="#"
+                    class="block rounded-md px-3 py-2 text-xs font-medium text-gray-300 hover:bg-white/5 hover:text-white">Skills</a>
+                <a href="#"
+                    class="block rounded-md px-3 py-2 text-xs font-medium text-gray-300 hover:bg-white/5 hover:text-white">Projects</a>
+                <a href="#"
+                    class="block rounded-md px-3 py-2 text-xs font-medium text-gray-300 hover:bg-white/5 hover:text-white">Contact</a>
+            </div>
+        </el-disclosure>
+    </nav>
+
+    <div class="m-10 flex sm:m-20">
+        <div class="sm:mr-20">
+            <h1 class="text-white mt-6 font-serif font-bold text-3xl">Hi, I'm Jihad</h1>
+            <p class="text-blue-700 font-mono font-bold">Frontend Developer</p>
+            <p class="text-white mt-4 mb-6 text-xs font-light
+            ">Lorem ipsum dolor sit amet consectetur adipisicing elit.<br>
+                Qui amet rem, quae
+                dolor commodi dolores <br> illum deleniti maxime sequi officiis.</p>
+
+            <button aria-current="page"
+                class="cursor-pointer bg-sky-500 mr-1 text-sm font-bold px-6 py-2 rounded-md hover:bg-gray-800 border-1 border-sky-500 hover:text-sky-500"
+                type="submit">Hire Me</button>
+
+            <button
+                class="cursor-pointer bg-sky-500 mr-1 text-sm font-bold px-6 py-2 rounded-md hover:bg-gray-800 border-1 border-sky-500 hover:text-sky-500"
+                type="submit">Let's Talk</button>
+
+            <div class="flex justify-evenly mt-5 mr-5 sm:justify-between sm:mr-15 sm:ml-5 ">
+                <button class="cursor-pointer size-8 grid justify-center items-center bg-cyan-500  rounded-full  hover:bg-cyan-600 sm:mr-4"
+                    type="submit"><img class="size-6" src="./photo/github.png" alt=""></button>
+                <button class="cursor-pointer size-8 grid justify-center items-center bg-cyan-500  rounded-full  hover:bg-cyan-600 sm:mr-4"
+                    type="submit"><img class="size-6" src="./photo/linkedin.png" alt=""></button>
+                <button class="cursor-pointer size-8 grid justify-center items-center bg-cyan-500  rounded-full  hover:bg-cyan-600 sm:mr-4"
+                    type="submit"><img class="size-6" src="./photo/facebook.png" alt=""></button>
+            </div>
+        </div>
+
+        <div class="">
+            <img src="./photo/jihad.jpeg" alt=""
+                class="max-w-2xs min-h-fit drop-shadow-sky-900 drop-shadow-2xl rounded-2xl sm:max-w-md sm:drop-shadow-sky-700 sm:ml-60"/>
+        </div>
+
+
+    </div>
+</body>
+
+</html>

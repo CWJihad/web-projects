@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Mania</title>
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body>
+
+    <div class="">
+        <div id="scoreBox">Score: 0</div>
+        <div id="hiscoreBox">High Score: 0</div>
+    </div>
+
+    <div id="startScreen" class="">
+        <div class="start-box">
+            <h1>Snake Mania</h1>
+
+            <div class="levels">
+                <div class="level-card active" data-level="easy">Easy</div>
+                <div class="level-card" data-level="medium">Medium</div>
+                <div class="level-card" data-level="hard">Hard</div>
+            </div>
+
+            <p id="levelHighScore">High Score (Easy): 0</p>
+            <button id="playBtn">Play</button>
+            
+        </div>
+    </div>
+    
+    <div id="board"></div>
+
+    <div id="pauseOverlay" class="visibility">
+        <h1>Game Paused</h1>
+        <p>Press R to Resume</p>
+    </div>
+
+    <div id="gameOverOverlay" class="visibility">
+        <div class="game-over-box">
+            <h1>Game Over</h1>
+            <p id="finalScore">Your Score: 0</p>
+            <p id="finalHighScore">High Score: 0</p>
+            <button id="playAgainBtn">Play</button>
+            <button id="changeLevelBtn">Change Level</button>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>

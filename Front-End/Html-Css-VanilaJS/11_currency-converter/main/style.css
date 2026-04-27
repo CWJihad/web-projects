@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,700;1,300&family=Poppins:wght@400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    font-family: 'Noto Sans', sans-serif;
+    /* font-weight: 900; */
+    display: flex;
+    /* font-size: 20px; */
+    background: #e0d1f5;
+    padding: 10px;
+    justify-content: space-between;
+}
+
+nav li a {
+    text-decoration: none;
+    color: #020312;
+    transition: all;
+    transition-duration: 500ms;
+}
+
+nav li a:hover {
+    text-decoration: none;
+    color: #6765eb;
+}
+
+div.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 23px;
+    font-size: 24px;
+}
+
+div.logo span {
+    font-size: small;
+}
+
+nav ul li {
+    list-style: none;
+    margin: 0 23px;
+}
+
+nav ul {
+    display: flex;
+}
+
+.container {
+    /* border: 2px solid red; */
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    max-width: 80vw;
+    margin: auto;
+    display: flex;
+}
+
+.container h1,
+h2 {
+    margin: 23px 0;
+}
+
+.container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.container form input[type='number'],
+select,
+label {
+    font-size: 25px;
+    width: 23vw;
+    margin-bottom: 23px;
+}
+
+.btn {
+    width: 144px;
+    padding: 5px 8px;
+    font-size: 20px;
+    background: #e0d0f5;
+    color: black;
+    border-radius: 13px;
+    cursor: pointer;
+}
+
+.output {
+    display: none;
+}
+
+.output table {
+    width: 50vw;
+    text-align: center;
+    border: 2px solid black;
+    font-size: 20px;
+}
+
+.output table th {
+    padding: 3px;
+}
+
+footer {
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    background: #353535;
+    color: white;
+    padding: 15px 0;
+}
+
+@media (max-width: 600px) {
+    nav {
+        flex-direction: column;
+        font-size: 14px;
+    }
+
+    nav ul li {
+        margin: 5px 13px;
+    }
+
+    nav ul {
+        justify-content: center;
+    }
+
+    .container {
+        max-width: 95vw;
+    }
+
+    .container form input[type='number'],
+    select,
+    label {
+        width: 80vw;
+    }
+
+}

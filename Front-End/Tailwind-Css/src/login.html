@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Card</title>
+    <link rel="stylesheet" href="./output.css">
+    <style>
+        *{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 flex justify-center items-center min-h-screen">
+    <div class="bg-gray-700 rounded-xl px-8 py-10 drop-shadow-2xl max-w-sm w-full">
+        <h2 class="text-center font-bold text-3xl text-sky-500 mb-8">Login</h2>
+        <form>
+            <div class="flex items-center mb-3">
+                <label class="mr-8 text-gray-300 text-sm"><b>Email</b></label>
+                <input class="bg-white text-center border-2 border-gray-400 focus:border-2 focus:border-gray-800 outline-none rounded-md py-1.5 w-full" type="email" placeholder="enter email">
+            </div>
+            <div class="flex items-center mb-3">
+                <label class="mr-1 text-gray-300 text-sm"><b>Password</b></label>
+                <input class="bg-white text-center border-2 border-gray-400 focus:border-2 focus:border-gray-800 outline-none rounded-md py-1.5 w-full" type="password" placeholder="enter password">
+            </div>
+            <div>
+                <button class="w-full bg-blue-600 py-2 rounded-md mt-2 text-white hover:bg-blue-700" type="submit">Login</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

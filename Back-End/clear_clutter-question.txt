@@ -1,0 +1,19 @@
+You have to write a Node.js program to
+clear clutter inside of a directory and 
+organize the contents of that directory
+into different folders
+
+for example, these files become:
+
+1. name.jpg
+2. hacker.png
+3. this.pdf
+4. harry.zip
+5. jihad.zip
+6. cat.jpg
+
+// answer like organize:
+jpg/name.jpg, jpg/cat.jpg
+png/name2
+zip/harry, zip/jihad
+pdf/this
