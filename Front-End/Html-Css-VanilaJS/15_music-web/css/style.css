@@ -1,18 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 :root {
-    --a:0;
+    --a: 0;
 }
 
 * {
     padding: 0;
     margin: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
 
 body {
     background: black;
     color: white;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    /* padding: 2px; */
+    /* justify-content: center; */
 }
 
 .close {
@@ -82,7 +89,7 @@ body {
     background-color: #222222;
 }
 
-.header>*{
+.header>* {
     padding: 20px;
 }
 
@@ -97,7 +104,8 @@ body {
 }
 
 .cardContainer {
-    margin: 30px; /* not working */
+    margin: 30px;
+    /* not working */
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
@@ -251,7 +259,7 @@ body {
     font-size: 12px;
     width: 344px;
     overflow: hidden;
-    
+
 }
 
 .info div {
@@ -307,7 +315,11 @@ body {
 .songinfo {
     color: black;
     padding: 0 12px;
-    width: 250px;
+    width: 550px;
+    margin-top: 9px;
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
 }
 
 .songtime {
@@ -349,9 +361,14 @@ body {
         top: 0;
     }
 
-    .songinfo, 
     .songtime {
         width: auto;
+    }
+
+    .songinfo {
+
+        width: 650px;
+     
     }
 
     .left .close {
@@ -390,7 +407,7 @@ body {
     }
 
     .card {
-        width: 55vw;
+        width: 30vw;
     }
 
     .cardContainer {
@@ -421,9 +438,13 @@ body {
 }
 
 @media (max-width: 500px) {
-    
+
     .card {
-        width: 100%;
+        width: 60%;
+    }
+
+    .songinfo {
+        width: 250px;
     }
 
     .header>* {
@@ -451,6 +472,3 @@ body {
     }
 
 }
-
-
-
