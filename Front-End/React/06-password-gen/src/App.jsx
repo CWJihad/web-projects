@@ -8,10 +8,10 @@ const App = () => {
   const [show, setShow] = useState(0);
   const [bgChange, setBgChange] = useState('blue');
 
-  // useRef hook
+  // useRef hook for taking reference
   const passRef = useRef(null)
   
-  // useCallback hook
+  // useCallback hook for cache previous unchanged data
   const passwordGen = useCallback(() => {
     let pass = "";
     let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -43,7 +43,7 @@ const App = () => {
 
   }, [password])
   
-  // useEffect hook
+  // useEffect hook for stopping continue rendering
   useEffect(() => {
     passwordGen()
   }, [len, numAllow, charAllow])
