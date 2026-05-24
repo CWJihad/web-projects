@@ -1,0 +1,2 @@
+userrolepass = EVl4FVKUEeExxERT
+url = mongodb+srv://yt-auth-cwj:EVl4FVKUEeExxERT@cluster0.jlnf3ut.mongodb.net/
