@@ -26,8 +26,8 @@ export default function Skills() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-border mt-16">
         {[
           { n: "10+", label: "Projects done" },
-          { n: "100%", label: "Client satisfaction" },
-          { n: "2+", label: "Years learning" },
+          { n: "70%", label: "Learning satisfaction" },
+          { n: "1+", label: "Years learning" },
           { n: "24h", label: "Response time" },
         ].map(s => (
           <div key={s.label} className="bg-paper p-8 text-center">

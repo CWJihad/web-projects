@@ -1,6 +1,6 @@
 export const info = {
   name: "Md Jihad Khan",
-  title: "Web Developer & AI Automation",
+  title: "Full Stack Developer",
   tagline: "I build fast websites and smart automation's that save businesses time and money.",
   // location: "Bangladesh",
   email: "kmjihadhpl2023@gmail.com",
@@ -12,50 +12,43 @@ export const info = {
 export const services = [
   {
     id: "01",
-    title: "Web Development",
-    desc: "Clean, fast, and responsive websites built with modern tech. From landing pages to full business sites.",
-    tags: ["React","Express.js", "Next.js", "HTML/CSS", "Tailwind"],
+    title: "Front-End Development",
+    desc: "Responsive, modern UIs built with React and Tailwind CSS. From dashboards to full business sites, optimized for speed and usability across devices.",
+    tags: ["React", "Next.js", "Tailwind CSS", "shadcn/ui", "Vite"],
   },
   {
     id: "02",
-    title: "AI Automation",
-    desc: "Automate repetitive tasks with AI — chatbot's, auto-email replies, WhatsApp bots, and workflow tools.",
-    tags: ["OpenAI API", "n8n", "Python"],
+    title: "Back-End Development",
+    desc: "Secure REST APIs and server-side logic with Node.js and Express. JWT authentication, role-based access control, and MongoDB integration for real-world applications.",
+    tags: ["Node.js", "Express.js", "MongoDB", "JWT Auth", "REST APIs"],
   },
   {
     id: "03",
-    title: "Landing Pages",
-    desc: "High-converting landing pages for products, services, or events. Delivered fast, looks great on all devices.",
-    tags: ["Figma → Code", "SEO", "Analytics"],
+    title: "Full-Stack Web Apps",
+    desc: "End-to-end applications connecting a polished frontend to a reliable backend — auth systems, admin dashboards, and business tools built and deployed from scratch.",
+    tags: ["MERN Stack", "Vercel", "Railway", "Nodemailer"],
   },
 ]
 
 export const projects = [
   {
-    title: "Restaurant Website",
-    desc: "Full website with menu, online reservation, and contact form for a local Dhaka restaurant.",
-    tech: ["React", "Tailwind", "Express.js"],
-    tag: "Web Dev",
-    link: "#",
+    title: "Note App — Full-Stack Authentication System",
+    desc: "A full-stack note-taking app with JWT authentication, OTP-based password recovery, email verification, and avatar upload. Built to demonstrate secure, production-style auth flows.",
+    tech: ["React", "Node.js", "Express", "MongoDB", "JWT", "Tailwind CSS"],
+    tag: "Backend Focused",
+    link: "https://note-auth-eta.vercel.app/",
   },
   {
-    title: "WhatsApp AI Chatbot",
-    desc: "Automated customer support bot for a clothing store — handles FAQs and order status 24/7.",
-    tech: ["Python", "n8n", "OpenAI"],
-    tag: "AI Automation",
-    link: "#",
-  },
-  {
-    title: "Freelancer Portfolio",
-    desc: "A clean, fast portfolio site for a photographer with gallery, contact form, and CMS.",
-    tech: ["Next.js", "Tailwind css", "Vercel"],
-    tag: "Web Dev",
-    link: "#",
+    title: "QuickEMS — Employee Management System",
+    desc: "A role-based employee management dashboard with attendance tracking, leave management, and printable payslips. Built with REST APIs, auth middleware, and automated email/background jobs.",
+    tech: ["React", "Node.js", "Express", "MongoDB", "Nodemailer", "Inngest", "Tailwind CSS"],
+    tag: "Full Stack",
+    link: "https://employee-management-system-smoky-nine.vercel.app/",
   },
 ]
 
 export const skills = [
-  "React", "Next.js", "Tailwind CSS", "JavaScript", "Python",
-  "OpenAI API", "Node.js", "n8n", "Figma", "Git & GitHub",
-  "Vercel", "REST APIs", "WhatsApp API", "SQL/NoSql",
+  "Node.js", "Express", "MongoDB", "REST APIs", "JWT Auth",
+  "React", "Next.js(learning)", "JavaScript", "TypeScript (learning)",
+  "Tailwind CSS", "Git & GitHub", "Vercel", "Railway",
 ]

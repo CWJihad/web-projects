@@ -13,7 +13,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="py-24 px-6 max-w-6xl mx-auto">
-      <div className="flex items-end justify-between mb-16 border-b border-border pb-6">
+      <div className="flex items-end justify-center mb-16 border-b border-border pb-6">
         <div>
           <p className="font-mono text-xs text-accent uppercase tracking-widest mb-2">
             <span className="inline-block w-4 h-px bg-accent mr-2 align-middle"></span>Get in touch
@@ -22,9 +22,9 @@ export default function Contact() {
         </div>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-16">
+      <div className="flex mx-auto w-1/2 justify-center items-center">
         {/* Left */}
-        <div>
+        <div className="">
           <p className="font-body text-base text-muted leading-relaxed mb-10">
             Have a project in mind? Want to automate something in your business?
             I'd love to hear about it. Send a message and I'll get back to you within 24 hours.
@@ -47,7 +47,7 @@ export default function Contact() {
         </div>
 
         {/* Right — form */}
-        <div>
+        {/* <div>
           {sent ? (
             <div className="h-full flex flex-col items-center justify-center text-center py-12">
               <p className="font-display text-4xl uppercase tracking-widest text-accent mb-3">Sent!</p>
@@ -83,7 +83,7 @@ export default function Contact() {
               </button>
             </form>
           )}
-        </div>
+        </div> */}
       </div>
     </section>
   )

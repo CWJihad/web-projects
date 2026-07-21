@@ -76,7 +76,7 @@ export default function Hero() {
         <div className="flex animate-marquee whitespace-nowrap">
           {[...Array(2)].map((_, i) => (
             <span key={i} className="flex items-center gap-6 mr-6 font-display text-3xl uppercase tracking-widest text-border">
-              {"Web Development · AI Automation · React · Python · Chatbots · Landing Pages · ".repeat(1)}
+              {"Node.js · Express · Mongo DB · REST APIs · React · Next.js · JWT Auth · ".repeat(1)}
             </span>
           ))}
         </div>
