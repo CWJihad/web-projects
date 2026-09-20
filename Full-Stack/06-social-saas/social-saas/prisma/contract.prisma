@@ -1,0 +1,11 @@
+// use prisma-8
+
+model Video {
+  id    Int @id @default(autoincrement())
+  title String 
+  description String?
+  publicId String
+  originalSize String
+  compressedSize String
+  duration String
+}
