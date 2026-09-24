@@ -1,11 +1,14 @@
 // use prisma-8
+// Contract inferred from the live database schema. Edit as needed, then run `prisma contract emit`.
 
 model Video {
-  id    Int @id @default(autoincrement())
-  title String 
-  description String?
-  publicId String
-  originalSize String
+  id             Int      @id @default(autoincrement())
+  title          String
+  description    String?
+  publicId       String
+  originalSize   String
   compressedSize String
-  duration String
+  duration       Float
+  createdAt      DateTime @default(now())
+  updatedAt      temporal.updatedAt()
 }
