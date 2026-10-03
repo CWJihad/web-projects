@@ -4,9 +4,9 @@ import { auth } from "@clerk/nextjs/server";
 
 // Configuration
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_NAME,
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SEC, // Click 'View API Keys' above to copy your API secret
+  api_secret: process.env.CLOUDINARY_API_SECRET, // Click 'View API Keys' above to copy your API secret
 });
 
 interface CloudinaryUploadResult {
@@ -18,7 +18,6 @@ export async function POST(request: NextRequest) {
   await auth.protect();
 
   try {
-    
     const { userId } = await auth();
 
     if (!userId) {
@@ -37,11 +36,25 @@ export async function POST(request: NextRequest) {
 
     const result = await new Promise<CloudinaryUploadResult>(
       (resolve, reject) => {
+        // const uploadStream = cloudinary.uploader.upload_stream(
+        //   { folder: "next-cloudinary-uploads" },
+        //   (error, result) => {
+        //     if (error) reject(error);
+        //     else resolve(result as CloudinaryUploadResult);
+        //   },
+        // );
         const uploadStream = cloudinary.uploader.upload_stream(
-          { folder: "next-cloudinary-uploads" },
+          {
+            asset_folder: "next-cloudinary-uploads",
+            resource_type: "image",
+          },
           (error, result) => {
-            if (error) reject(error);
-            else resolve(result as CloudinaryUploadResult);
+            if (error) {
+              console.log("Cloudinary ERROR:", error);
+              reject(error);
+            } else {
+              resolve(result as CloudinaryUploadResult);
+            }
           },
         );
         uploadStream.end(buffer);
@@ -49,8 +62,21 @@ export async function POST(request: NextRequest) {
     );
 
     return NextResponse.json({ publicId: result.public_id }, { status: 200 });
-  } catch (err) {
-    console.log("Upload file failed", err);
-    return NextResponse.json({ error: err }, { status: 500 });
+  } catch (err: any) {
+    // catch (err) {
+    //   console.log("Upload file failed", err);
+    //   return NextResponse.json({ error: err }, { status: 500 });
+    // }
+    console.log("Upload file failed");
+    console.log("Error message:", err?.message);
+    console.log("HTTP code:", err?.http_code);
+    console.log("Full error:", err);
+
+    return NextResponse.json(
+      {
+        error: err?.message || "Upload failed",
+      },
+      { status: 500 },
+    );
   }
 }

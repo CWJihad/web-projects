@@ -5,9 +5,9 @@ import { db } from "@/lib/prisma";
 
 // Configuration
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_NAME,
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SEC, // Click 'View API Keys' above to copy your API secret
+  api_secret: process.env.CLOUDINARY_API_SECRET, // Click 'View API Keys' above to copy your API secret
 });
 
 interface CloudinaryUploadResult {
@@ -28,9 +28,9 @@ export async function POST(request: NextRequest) {
     }
 
     if (
-      !process.env.CLOUDINARY_NAME ||
+      !process.env.CLOUDINARY_CLOUD_NAME ||
       !process.env.CLOUDINARY_API_KEY ||
-      !process.env.CLOUDINARY_API_SEC
+      !process.env.CLOUDINARY_API_SECRET
     ) {
       return NextResponse.json(
         { error: "Cloudinary credentials not found" },
