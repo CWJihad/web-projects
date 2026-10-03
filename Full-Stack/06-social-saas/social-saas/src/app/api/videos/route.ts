@@ -13,8 +13,9 @@ export async function GET(request: NextRequest) {
         
         return NextResponse.json({error: "Error fetching videos"}, {status: 500})
         
-    } finally {
-        await db.close()
     }
+    //  finally {
+    //     await db.close()
+    // }
     
 }

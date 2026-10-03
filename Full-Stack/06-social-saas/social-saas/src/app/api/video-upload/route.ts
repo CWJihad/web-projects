@@ -86,7 +86,8 @@ export async function POST(request: NextRequest) {
   } catch (err) {
     console.log("Upload video failed", err);
     return NextResponse.json({ error: err }, { status: 500 });
-  } finally {
-    await db.close()
-  }
+  } 
+  // finally {
+  //   await db.close()
+  // }
 }

@@ -62,7 +62,6 @@ const page = () => {
           ))}
         </div>
       )}
-      Home
     </div>
   )
 }
