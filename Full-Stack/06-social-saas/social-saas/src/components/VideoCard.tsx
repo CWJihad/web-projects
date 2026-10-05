@@ -16,6 +16,7 @@ interface VideoCardProps {
 export const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [previewError, setPreviewError] = useState(false);
+  const downloadApi = `/api/video-download?publicId=${encodeURIComponent(video.publicId)}`
 
   const getThumbnailUrl = useCallback((publicId: string) => {
     return getCldImageUrl({
@@ -27,14 +28,6 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload }) => {
       format: "jpg",
       quality: "auto",
       assetType: "video",
-    });
-  }, []);
-
-  const getFullVideoUrl = useCallback((publicId: string) => {
-    return getCldVideoUrl({
-      src: publicId,
-      width: 1920,
-      height: 1080,
     });
   }, []);
 
@@ -141,7 +134,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload }) => {
           <button
             className="btn btn-primary btn-sm"
             onClick={() =>
-              onDownload(getFullVideoUrl(video.publicId), video.title)
+              onDownload(downloadApi, video.title)
             }
           >
             <Download size={16} />
