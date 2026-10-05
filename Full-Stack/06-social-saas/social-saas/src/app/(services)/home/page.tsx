@@ -31,22 +31,25 @@ const page = () => {
 
   const handleDownload = useCallback(async (url: string, title: string) => {
     try {
-      const response = await axios.get(url);
+      const response = await axios.get(url, {
+        responseType: "blob"
+      });
 
-      const downloadUrl = response.data.downloadUrl;
+      const blobUrl = window.URL.createObjectURL(response.data)
 
-      if (!downloadUrl) {
+      if (!blobUrl) {
         throw new Error("Download URL not found");
       }
 
       const link = document.createElement("a");
-      link.href = downloadUrl;
-      link.setAttribute("download", `${title}.mp4`);
-      link.setAttribute("target", "_blank");
+      link.href = blobUrl;
+      link.download = `${title}.mp4`
 
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+
+      window.URL.revokeObjectURL(blobUrl)
     } catch (error) {
       console.error("Download failed:", error);
       alert("Failed to download video");
