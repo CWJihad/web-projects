@@ -21,6 +21,9 @@ const ClientPage = () => {
   );
   const [isUploading, setIsUploading] = useState(false);
   const [isTransforming, setIsTransforming] = useState(false);
+
+  const [title, setTitle] = useState("");
+  
   const imageRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
@@ -37,6 +40,10 @@ const ClientPage = () => {
 
     const formData = new FormData();
     formData.append("file", file);
+
+    if (title.trim()) {
+      formData.append('title', title.trim())
+    }
 
     try {
       const res = await fetch("/api/image-upload", {
@@ -85,7 +92,20 @@ const ClientPage = () => {
         <div className="card-body">
           <h2 className="card-title mb-4">Upload an Image</h2>
           <div className="form-control">
-            <label className="label">
+            <div className="mb-4">
+              <label className="label">
+              <span className="label-text">Image Title</span>
+            </label>
+            <input
+              type="text"
+              placeholder="e.g. Flying Dragon"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="input outline-none input-bordered w-full"
+            />
+            </div>
+            <div>
+              <label className="label">
               <span className="label-text">Choose an image file</span>
             </label>
             <input
@@ -93,6 +113,7 @@ const ClientPage = () => {
               onChange={handleFileUpload}
               className="file-input file-input-bordered file-input-primary w-full"
             />
+            </div>
           </div>
 
           {isUploading && (

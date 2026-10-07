@@ -1,85 +1,81 @@
-"use client";
-import React, { useState, useEffect, useCallback } from "react";
-import axios from "axios";
-import VideoCard from "@/components/VideoCard";
-import { Video } from "@/types";
+import Link from "next/link";
+import { Image, Video } from "lucide-react";
 
-const page = () => {
-  const [videos, setVideos] = useState<Video[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  const fetchVideos = useCallback(async () => {
-    try {
-      const res = await axios.get("/api/videos");
-      if (Array.isArray(res.data)) {
-        setVideos(res.data);
-      } else {
-        throw new Error("Unexpected response format");
-      }
-    } catch (error) {
-      console.log(error);
-      setError("Failed to fetch videos");
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchVideos();
-  }, [fetchVideos]);
-
-  const handleDownload = useCallback(async (url: string, title: string) => {
-    try {
-      const response = await axios.get(url, {
-        responseType: "blob"
-      });
-
-      const blobUrl = window.URL.createObjectURL(response.data)
-
-      if (!blobUrl) {
-        throw new Error("Download URL not found");
-      }
-
-      const link = document.createElement("a");
-      link.href = blobUrl;
-      link.download = `${title}.mp4`
-
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      window.URL.revokeObjectURL(blobUrl)
-    } catch (error) {
-      console.error("Download failed:", error);
-      alert("Failed to download video");
-    }
-  }, []);
-
-  if (loading) {
-    return <div>Loading.....</div>;
-  }
-
+const HomePage = () => {
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Videos</h1>
-      {videos.length === 0 ? (
-        <div className="text-center text-lg text-gray-500">
-          No videos available
+    <div className="space-y-10">
+      {/* Header */}
+      <div>
+        <h1 className="text-3xl font-bold">My Media</h1>
+
+        <p className="mt-1 text-base-content/60">
+          Manage your images and videos in one place.
+        </p>
+      </div>
+
+      {/* Media Library */}
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        {/* Images */}
+        <Link
+          href="/images"
+          className="group rounded-box border border-base-300 bg-base-100 p-8 transition hover:border-primary hover:shadow-md"
+        >
+          <Image
+            size={42}
+            className="mb-5 text-primary transition-transform group-hover:scale-110"
+          />
+
+          <h2 className="text-2xl font-bold">Images</h2>
+
+          <p className="mt-2 text-base-content/60">
+            Manage, resize, compress and process your images.
+          </p>
+
+          <span className="mt-6 inline-block text-sm font-semibold text-primary">
+            Open Image Library →
+          </span>
+        </Link>
+
+        {/* Videos */}
+        <Link
+          href="/videos"
+          className="group rounded-box border border-base-300 bg-base-100 p-8 transition hover:border-primary hover:shadow-md"
+        >
+          <Video
+            size={42}
+            className="mb-5 text-primary transition-transform group-hover:scale-110"
+          />
+
+          <h2 className="text-2xl font-bold">Videos</h2>
+
+          <p className="mt-2 text-base-content/60">
+            Manage, download and process your uploaded videos.
+          </p>
+
+          <span className="mt-6 inline-block text-sm font-semibold text-primary">
+            Open Video Library →
+          </span>
+        </Link>
+      </div>
+
+      {/* Quick Upload */}
+      <section>
+        <h2 className="mb-4 text-xl font-bold">Quick Upload</h2>
+
+        <div className="flex flex-wrap gap-3">
+          <Link href="/social-share" className="btn btn-outline">
+            <Image size={18} />
+            Upload Image
+          </Link>
+
+          <Link href="/video-upload" className="btn btn-primary">
+            <Video size={18} />
+            Upload Video
+          </Link>
         </div>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {videos.map((video) => (
-            <VideoCard
-              onDownload={handleDownload}
-              key={video.publicId}
-              video={video}
-            />
-          ))}
-        </div>
-      )}
+      </section>
     </div>
   );
 };
 
-export default page;
+export default HomePage;

@@ -34,8 +34,10 @@ const page = () => {
 
     try {
       const res = await axios.post("/api/video-upload", formData);
-
       // check for 200 response
+      if (res.status === 200) {
+        router.push('/home')
+      }
     } catch (error) {
       console.log(error);
     } finally {

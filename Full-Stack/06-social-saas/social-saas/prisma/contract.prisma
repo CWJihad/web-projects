@@ -13,3 +13,13 @@ model Video {
   createdAt      DateTime @default(now())
   updatedAt      temporal.updatedAt()
 }
+
+model Image {
+  id          Int      @id @default(autoincrement())
+  userId      String
+  title       String?
+  publicId    String
+  originalSize String?
+  createdAt   DateTime @default(now())
+  updatedAt   temporal.updatedAt()
+}

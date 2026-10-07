@@ -105,7 +105,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload }) => {
           Uploaded {dayjs(video.createdAt).fromNow()}
         </p>
 
-        <div className="gird grid-cols-2 gap-4 text-sm">
+        <div className="grid grid-cols-2 gap-4 text-sm">
           <div className="flex items-center">
             <FileUp size={18} className="mr-2 text-primary" />
 
