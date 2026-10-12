@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
-import { db } from "@/lib/prisma"; // your shared client path
+import { db } from "@/lib/prisma";
 
 export async function GET(
   _req: Request,
@@ -11,7 +11,11 @@ export async function GET(
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { id } = await params;
-  const video = await db.video.findFirst({ where: { id, userId } });
+    const videoId = Number(id);
+
+  const video = await db.orm.public.Video
+    .where({ id: videoId, userId })
+    .first();
 
   if (!video) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
