@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { filesize } from "filesize";
 import { Video } from "@/types";
+import Link from "next/link";
 
 dayjs.extend(relativeTime);
 
@@ -16,7 +17,7 @@ interface VideoCardProps {
 export const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [previewError, setPreviewError] = useState(false);
-  const downloadApi = `/api/video-download?publicId=${encodeURIComponent(video.publicId)}`
+  const downloadApi = `/api/video-download?publicId=${encodeURIComponent(video.publicId)}`;
 
   const getThumbnailUrl = useCallback((publicId: string) => {
     return getCldImageUrl({
@@ -131,11 +132,23 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload }) => {
             <span className="text-accent">{compressPercentage}%</span>
           </div>
 
+          <Link
+            href={`/videos/${video.id}/compress`}
+            className="btn btn-sm btn-outline"
+          >
+            Compress
+          </Link>
+
+          <Link
+            href={`/videos/${video.id}/subtitles`}
+            className="btn btn-sm btn-outline"
+          >
+            Subtitles
+          </Link>
+
           <button
             className="btn btn-primary btn-sm"
-            onClick={() =>
-              onDownload(downloadApi, video.title)
-            }
+            onClick={() => onDownload(downloadApi, video.title)}
           >
             <Download size={16} />
           </button>

@@ -25,3 +25,35 @@ export function buildVideoUrl(
     .join(",");
   return `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/video/upload/${t}/${publicId}.mp4`;
 }
+
+export const SUBTITLE_LANGUAGES = [
+  { code: "en-US", label: "English", font: "arial" },
+  { code: "bn-BD", label: "বাংলা (Bangla)", font: process.env.NEXT_PUBLIC_CLOUDINARY_BN_FONT || "arial" },
+] as const;
+
+export type SubtitleLang = (typeof SUBTITLE_LANGUAGES)[number]["code"];
+
+export function buildSubtitledVideoUrl(
+  publicId: string,
+  presetKey: VideoPresetKey,
+  language: SubtitleLang,
+  opts?: { download?: boolean; filename?: string, rev?: number }
+) {
+  const p = VIDEO_PRESETS.find((x) => x.key === presetKey)!;
+  const lang = SUBTITLE_LANGUAGES.find((l) => l.code === language)!;
+  const base = [opts?.rev ? `$rev_${opts.rev}` : null, `q_${p.quality}`, "vc_auto", p.height ? `h_${p.height},c_limit` : null]
+    .filter(Boolean)
+    .join(",");
+  const subId = `${publicId}.${language}.srt`.replace(/\//g, ":");
+  const layer = `l_subtitles:${lang.font}_36:${subId},co_white,b_rgb:00000090/fl_layer_apply`;
+  const attach = opts?.download
+    ? `/fl_attachment:${encodeURIComponent((opts.filename || "video").replace(/[^\w\-]+/g, "_"))}`
+    : "";
+  return `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/video/upload/${base}/${layer}${attach}/${publicId}.mp4`;
+}
+
+export function formatBytes(bytes: number) {
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
+  if (bytes < 1024 ** 3) return `${(bytes / 1024 ** 2).toFixed(1)} MB`;
+  return `${(bytes / 1024 ** 3).toFixed(2)} GB`;
+}
