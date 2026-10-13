@@ -27,8 +27,8 @@ export function buildVideoUrl(
 }
 
 export const SUBTITLE_LANGUAGES = [
-  { code: "en-US", label: "English", font: "arial" },
-  { code: "bn-BD", label: "বাংলা (Bangla)", font: process.env.NEXT_PUBLIC_CLOUDINARY_BN_FONT || "arial" },
+  { code: "en-US", label: "English", font: "arial", burnIn: true, track: "en" },
+  { code: "bn-BD", label: "বাংলা (Bangla)", font: "arial", burnIn: false, track: "bn" },
 ] as const;
 
 export type SubtitleLang = (typeof SUBTITLE_LANGUAGES)[number]["code"];
@@ -45,7 +45,8 @@ export function buildSubtitledVideoUrl(
     .filter(Boolean)
     .join(",");
   const subId = `${publicId}.${language}.srt`.replace(/\//g, ":");
-  const layer = `l_subtitles:${lang.font}_36:${subId},co_white,b_rgb:00000090/fl_layer_apply`;
+  const fontSize = Math.round((p.height ?? 720) * 0.035)
+  const layer = `l_subtitles:${lang.font}_${fontSize}:${subId},co_white,b_rgb:00000090/fl_layer_apply,g_south,y_30`;
   const attach = opts?.download
     ? `/fl_attachment:${encodeURIComponent((opts.filename || "video").replace(/[^\w\-]+/g, "_"))}`
     : "";
@@ -56,4 +57,11 @@ export function formatBytes(bytes: number) {
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
   if (bytes < 1024 ** 3) return `${(bytes / 1024 ** 2).toFixed(1)} MB`;
   return `${(bytes / 1024 ** 3).toFixed(2)} GB`;
+}
+
+export function srtToVtt(srt: string) {
+  return (
+    "WEBVTT\n\n" +
+    srt.replace(/\r/g, "").replace(/(\d{2}:\d{2}:\d{2}),(\d{3})/g, "$1.$2")
+  );
 }

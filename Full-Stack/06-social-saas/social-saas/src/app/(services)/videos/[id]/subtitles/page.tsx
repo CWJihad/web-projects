@@ -9,6 +9,7 @@ import {
   buildSubtitledVideoUrl,
   VideoPresetKey,
   SubtitleLang,
+  srtToVtt,
 } from "@/helpers/videoPresets";
 
 type VideoData = { id: string; title: string; publicId: string };
@@ -29,6 +30,7 @@ export default function SubtitlesPage({
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [rev, setRev] = useState(0);
+  const [files, setFiles] = useState({ vtt: "", srt: "" });
 
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -45,7 +47,7 @@ export default function SubtitlesPage({
     const data = await r.json();
     if (data.ready) {
       setSrt(data.srt);
-      setRev(data.rev ?? 0)
+      setRev(data.rev ?? 0);
       setStatus("ready");
       return true;
     }
@@ -69,13 +71,13 @@ export default function SubtitlesPage({
   }, [id]);
 
   useEffect(() => {
-  if (!video) return;
-  stopPolling();
-  setSrt("");
-  setStatus("idle");
-  checkSubtitles(language);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [video, language]);
+    if (!video) return;
+    stopPolling();
+    setSrt("");
+    setStatus("idle");
+    checkSubtitles(language);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [video, language]);
 
   const generate = async () => {
     setError(null);
@@ -111,11 +113,27 @@ export default function SubtitlesPage({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ srt, language }),
     });
-    const data = await r.json()
+    const data = await r.json();
     if (!r.ok) setError(data.error ?? "Failed to save");
-    else setRev(data.rev)
+    else setRev(data.rev);
     setSaving(false);
   };
+
+  useEffect(() => {
+    if (!srt) {
+      setFiles({ vtt: "", srt: "" });
+      return;
+    }
+    const v = URL.createObjectURL(
+      new Blob([srtToVtt(srt)], { type: "text/vtt" }),
+    );
+    const s = URL.createObjectURL(new Blob([srt], { type: "text/plain" }));
+    setFiles({ vtt: v, srt: s });
+    return () => {
+      URL.revokeObjectURL(v);
+      URL.revokeObjectURL(s);
+    };
+  }, [srt]);
 
   if (loading) return <div className="p-6">Loading...</div>;
   if (!video)
@@ -137,7 +155,12 @@ export default function SubtitlesPage({
     download: true,
     filename: video.title,
   });
-  const previewUrl = buildSubtitledVideoUrl(video.publicId, preset, language, {rev});
+  const previewUrl = buildSubtitledVideoUrl(video.publicId, preset, language, {
+    rev,
+  });
+
+  const lang = SUBTITLE_LANGUAGES.find((l) => l.code === language)!;
+  const plainUrl = buildVideoUrl(video.publicId, preset);
 
   return (
     <div className="mx-auto max-w-3xl space-y-6 p-6">
@@ -188,12 +211,31 @@ export default function SubtitlesPage({
 
       {status === "ready" && (
         <>
-          <video
-            key={previewUrl}
-            src={previewUrl}
-            controls
-            className="w-full rounded-lg bg-black"
-          />
+          {lang.burnIn ? (
+            <video
+              key={previewUrl}
+              src={previewUrl}
+              controls
+              className="w-full rounded-lg bg-black"
+            />
+          ) : (
+            <video
+              src={plainUrl}
+              controls
+              className="w-full rounded-lg bg-black"
+            >
+              {files.vtt && (
+                <track
+                  key={files.vtt}
+                  kind="subtitles"
+                  srcLang={lang.track}
+                  label={lang.label}
+                  src={files.vtt}
+                  default
+                />
+              )}
+            </video>
+          )}
 
           <div>
             <span className="label-text mb-1 block">Edit subtitles (SRT)</span>
@@ -223,13 +265,42 @@ export default function SubtitlesPage({
             ))}
           </div>
 
+          {!lang.burnIn && (
+            <p className="text-sm opacity-70">
+              Bangla subtitles are delivered as a separate file (burned-in
+              Bangla isn't supported).
+            </p>
+          )}
           <div className="grid gap-3 sm:grid-cols-2">
-            <a href={withUrl} className="btn btn-primary">
-              Download with subtitles
+            {lang.burnIn && (
+              <a href={withUrl} className="btn btn-primary">
+                Download with subtitles
+              </a>
+            )}
+            <a
+              href={withoutUrl}
+              className={`btn ${lang.burnIn ? "btn-outline" : "btn-primary"}`}
+            >
+              {lang.burnIn ? "Download without subtitles" : "Download video"}
             </a>
-            <a href={withoutUrl} className="btn btn-outline">
-              Download without subtitles
-            </a>
+            {!lang.burnIn && files.srt && (
+              <>
+                <a
+                  href={files.srt}
+                  download={`${video.title}.${lang.code}.srt`}
+                  className="btn btn-outline"
+                >
+                  Download subtitles (.srt)
+                </a>
+                <a
+                  href={files.vtt}
+                  download={`${video.title}.${lang.code}.vtt`}
+                  className="btn btn-outline"
+                >
+                  Download subtitles (.vtt)
+                </a>
+              </>
+            )}
           </div>
         </>
       )}
