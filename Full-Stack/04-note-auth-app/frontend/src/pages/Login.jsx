@@ -1,5 +1,5 @@
-import React from "react";
-import { useState } from "react";
+
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getData } from "@/context/userContext";
@@ -9,40 +9,54 @@ const Login = () => {
     email: "",
     password: "",
   });
+
   const [status, setStatus] = useState("");
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [passShow, setPassShow] = useState(false);
+
   const navigate = useNavigate();
   const { setUser } = getData();
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
     try {
       const response = await axios.post(
         "http://localhost:3000/api/auth/login",
         formData,
         {
           headers: { "Content-Type": "application/json" },
-        },
+        }
       );
 
       if (response.status === 200 || response.status === 201) {
         setStatus("success");
         setUser(response.data.user);
-        setFormData({ email: "", password: "" });
-        localStorage.setItem("accessToken", response.data.accessToken)
-        localStorage.setItem("user", JSON.stringify(response.data.user))
+
+        setFormData({
+          email: "",
+          password: "",
+        });
+
+        localStorage.setItem("accessToken", response.data.accessToken);
+        localStorage.setItem(
+          "user",
+          JSON.stringify(response.data.user)
+        );
+
         setTimeout(() => {
           navigate("/");
         }, 1000);
       }
-
     } catch (err) {
       if (err.response) {
         const status = err.response.status;
@@ -53,211 +67,153 @@ const Login = () => {
           setErrorMessage(message);
         } else if (status === 403) {
           setStatus("unverified");
-          setErrorMessage(message); // "Please verify your email before logging in"
+          setErrorMessage(message);
         } else if (status === 404) {
           setStatus("notfound");
-          setErrorMessage(message); // "User not found"
+          setErrorMessage(message);
         } else {
           setStatus("error");
           setErrorMessage(message);
         }
       } else {
-        // network error — server not reachable
         setStatus("error");
         setErrorMessage("Something went wrong. Please try again.");
       }
     }
+
     setLoading(false);
   };
 
   return (
-    <div>
-      <div style={styles.container}>
-        <div style={styles.card}>
-          <h2 style={styles.title}>Login 👋</h2>
+    <div className="min-h-screen flex items-center justify-center bg-[#f0f4f8] font-sans px-4">
 
-          {status === "success" && (
-            <div style={styles.successMsg}>✅ Login successful.</div>
-          )}
-          {status === "unverified" && (
-            <div style={styles.errorMsg}>❌ {errorMessage}</div>
-          )}
-          {status === "unauthorized" && (
-            <div style={styles.errorMsg}>❌ {errorMessage}</div>
-          )}
-          {status === "notfound" && (
-            <div style={styles.successMsg}>
-              👍 {errorMessage}
-            </div>
-          )}
-          {status === "error" && (
-            <div style={styles.errorMsg}>
-              ❌ {errorMessage}
-            </div>
-          )}
+      <div className="bg-white p-10 rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.1)] w-full max-w-[420px]">
 
-          <form onSubmit={handleSubmit}>
-            <div style={styles.inputGroup}>
-              <label style={styles.label}>Email Address</label>
+        <h2 className="text-2xl font-bold mb-2 text-[#1a1a2e] text-center">
+          Login 👋
+        </h2>
+
+        {/* Success Message */}
+        {status === "success" && (
+          <div className="bg-[#e6ffed] text-[#2d6a4f] p-3 rounded-lg mb-4 text-sm">
+            ✅ Login successful.
+          </div>
+        )}
+
+        {/* Unverified Message */}
+        {status === "unverified" && (
+          <div className="bg-[#ffe6e6] text-[#c0392b] p-3 rounded-lg mb-4 text-sm">
+            ❌ {errorMessage}
+          </div>
+        )}
+
+        {/* Unauthorized Message */}
+        {status === "unauthorized" && (
+          <div className="bg-[#ffe6e6] text-[#c0392b] p-3 rounded-lg mb-4 text-sm">
+            ❌ {errorMessage}
+          </div>
+        )}
+
+        {/* User Not Found */}
+        {status === "notfound" && (
+          <div className="bg-[#e6ffed] text-[#2d6a4f] p-3 rounded-lg mb-4 text-sm">
+            👍 {errorMessage}
+          </div>
+        )}
+
+        {/* General Error */}
+        {status === "error" && (
+          <div className="bg-[#ffe6e6] text-[#c0392b] p-3 rounded-lg mb-4 text-sm">
+            ❌ {errorMessage}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit}>
+
+          {/* Email Address */}
+          <div className="mb-4">
+            <label className="block text-[13px] font-semibold text-[#444] mb-1.5">
+              Email Address
+            </label>
+
+            <input
+              className="w-full px-3.5 py-2.5 rounded-lg border border-[#ddd] text-sm outline-none box-border focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
+              type="email"
+              name="email"
+              placeholder="jone@example.com"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              autoFocus
+            />
+          </div>
+
+          {/* Password */}
+          <div className="mb-4">
+            <label className="block text-[13px] font-semibold text-[#444] mb-1.5">
+              Password
+            </label>
+
+            <div className="flex items-center justify-center">
               <input
-                style={styles.input}
-                type="email"
-                name="email"
-                placeholder="jone@example.com"
-                value={formData.email}
+                className="w-full px-3.5 py-2.5 rounded-lg border border-[#ddd] text-sm outline-none box-border focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
+                type={passShow ? "text" : "password"}
+                name="password"
+                placeholder="enter your password"
+                value={formData.password}
                 onChange={handleChange}
                 required
-                autoFocus
               />
-            </div>
 
-            <div style={styles.inputGroup}>
-              <label style={styles.label}>Password</label>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
+              <span
+                onClick={() => setPassShow(!passShow)}
+                className="ml-2.5 cursor-pointer"
               >
-                <input
-                  style={styles.input}
-                  type={passShow ? "text" : "password"}
-                  name="password"
-                  placeholder="enter your password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                />
-                <span
-                  onClick={() => setPassShow(!passShow)}
-                  style={{ marginLeft: "10px", cursor: "pointer" }}
-                >
-                  {passShow ? "🙈" : "👁️"}
-                </span>
-              </div>
-              <span>
-                <Link
-                  to="/forgot-password"
-                  style={{ textDecoration: "underline", fontSize: "13px" }}
-                >
-                  {" "}
-                  forgot password
-                </Link>
+                {passShow ? "🙈" : "👁️"}
               </span>
             </div>
 
-            <button
-              style={loading ? styles.buttonLoading : styles.button}
-              type="submit"
-              disabled={loading}
-            >
-              {loading ? "Sending..." : "Submit →"}
-            </button>
-            <div style={{ marginTop: "15px" }}>
-              <span>
-                I don't have an account?
-                <Link to="/register" style={{ textDecoration: "underline" }}>
-                  {" "}
-                  Sign Up
-                </Link>
-              </span>
+            {/* Forgot Password */}
+            <div className="mt-2 text-right">
+              <Link
+                to="/forgot-password"
+                className="underline text-[13px] hover:text-orange-500"
+              >
+                Forgot password?
+              </Link>
             </div>
-          </form>
-        </div>
+          </div>
+
+          {/* Submit Button */}
+          <button
+            className={`w-full p-3 text-white border-none rounded-lg text-base font-semibold mt-2 transition-colors ${
+              loading
+                ? "bg-[#ccc] cursor-not-allowed"
+                : "bg-[#ff6b35] cursor-pointer hover:bg-orange-600"
+            }`}
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? "Sending..." : "Submit →"}
+          </button>
+
+          {/* Register Link */}
+          <div className="mt-[15px]">
+            <span>
+              I don't have an account?{" "}
+              <Link
+                to="/register"
+                className="underline hover:text-orange-500"
+              >
+                Sign Up
+              </Link>
+            </span>
+          </div>
+
+        </form>
       </div>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    minHeight: "100vh",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#f0f4f8",
-    fontFamily: "sans-serif",
-  },
-  card: {
-    backgroundColor: "#ffffff",
-    padding: "40px",
-    borderRadius: "16px",
-    boxShadow: "0 4px 24px rgba(0,0,0,0.1)",
-    width: "100%",
-    maxWidth: "420px",
-  },
-  title: {
-    fontSize: "24px",
-    fontWeight: "700",
-    marginBottom: "8px",
-    color: "#1a1a2e",
-    textAlign: "center",
-  },
-  subtitle: {
-    fontSize: "14px",
-    color: "#666",
-    marginBottom: "24px",
-  },
-  inputGroup: {
-    marginBottom: "16px",
-  },
-  label: {
-    display: "block",
-    fontSize: "13px",
-    fontWeight: "600",
-    color: "#444",
-    marginBottom: "6px",
-  },
-  input: {
-    width: "100%",
-    padding: "10px 14px",
-    borderRadius: "8px",
-    border: "1px solid #ddd",
-    fontSize: "14px",
-    outline: "none",
-    boxSizing: "border-box",
-  },
-  button: {
-    width: "100%",
-    padding: "12px",
-    backgroundColor: "#ff6b35",
-    color: "#fff",
-    border: "none",
-    borderRadius: "8px",
-    fontSize: "16px",
-    fontWeight: "600",
-    cursor: "pointer",
-    marginTop: "8px",
-  },
-  buttonLoading: {
-    width: "100%",
-    padding: "12px",
-    backgroundColor: "#ccc",
-    color: "#fff",
-    border: "none",
-    borderRadius: "8px",
-    fontSize: "16px",
-    fontWeight: "600",
-    cursor: "not-allowed",
-    marginTop: "8px",
-  },
-  successMsg: {
-    backgroundColor: "#e6ffed",
-    color: "#2d6a4f",
-    padding: "12px",
-    borderRadius: "8px",
-    marginBottom: "16px",
-    fontSize: "14px",
-  },
-  errorMsg: {
-    backgroundColor: "#ffe6e6",
-    color: "#c0392b",
-    padding: "12px",
-    borderRadius: "8px",
-    marginBottom: "16px",
-    fontSize: "14px",
-  },
 };
 
 export default Login;
