@@ -1,5 +1,4 @@
 import axios from "axios";
-import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -66,201 +65,135 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <div style={styles.container}>
-        <div style={styles.card}>
-          <h2 style={styles.title}>Sign up 👋</h2>
+    <div className="min-h-screen flex items-center justify-center bg-[#f0f4f8] font-sans">
+      <div className="bg-white p-10 rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.1)] w-full max-w-105">
+        <h2 className="text-2xl font-bold mb-2 text-[#1a1a2e] text-center">
+          Sign up 👋
+        </h2>
 
-          {status === "success" && (
-            <div style={styles.successMsg}>✅ Registration is successful.</div>
-          )}
-          {status === "exist" && (
-            <div style={styles.successMsg}>👍 {errorMessage}</div>
-          )}
-          {status === "error" && (
-            <div style={styles.errorMsg}>❌ {errorMessage}</div>
-          )}
+        {status === "success" && (
+          <div className="bg-[#e6ffed] text-[#2d6a4f] p-3 rounded-lg mb-4 text-sm">
+            ✅ Registration is successful.
+          </div>
+        )}
 
-          <form onSubmit={handleSubmit}>
-            <div style={styles.inputGroup}>
-              <label style={styles.label}>Full Name</label>
+        {status === "exist" && (
+          <div className="bg-[#e6ffed] text-[#2d6a4f] p-3 rounded-lg mb-4 text-sm">
+            👍 {errorMessage}
+          </div>
+        )}
+
+        {status === "error" && (
+          <div className="bg-[#ffe6e6] text-[#c0392b] p-3 rounded-lg mb-4 text-sm">
+            ❌ {errorMessage}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit}>
+          {/* Full Name */}
+          <div className="mb-4">
+            <label className="block text-[13px] font-semibold text-[#444] mb-1.5">
+              Full Name
+            </label>
+
+            <input
+              className="w-full px-3.5 py-2.5 rounded-lg border border-[#ddd] text-sm outline-none box-border focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
+              type="text"
+              name="fullName"
+              placeholder="Mr. Jone Paul"
+              value={formData.fullName}
+              onChange={handleChange}
+              required
+              autoFocus
+            />
+          </div>
+
+          {/* Username */}
+          <div className="mb-4">
+            <label className="block text-[13px] font-semibold text-[#444] mb-1.5">
+              Username
+            </label>
+
+            <input
+              className="w-full px-3.5 py-2.5 rounded-lg border border-[#ddd] text-sm outline-none box-border focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
+              type="text"
+              name="username"
+              placeholder="Jone"
+              value={formData.username}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          {/* Email */}
+          <div className="mb-4">
+            <label className="block text-[13px] font-semibold text-[#444] mb-1.5">
+              Email Address
+            </label>
+
+            <input
+              className="w-full px-3.5 py-2.5 rounded-lg border border-[#ddd] text-sm outline-none box-border focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
+              type="email"
+              name="email"
+              placeholder="jone@example.com"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          {/* Password */}
+          <div className="mb-4">
+            <label className="block text-[13px] font-semibold text-[#444] mb-1.5">
+              Password
+            </label>
+
+            <div className="flex items-center justify-center">
               <input
-                style={styles.input}
-                type="text"
-                name="fullName"
-                placeholder="Mr. Jone Paul"
-                value={formData.fullName}
+                className="w-full px-3.5 py-2.5 rounded-lg border border-[#ddd] text-sm outline-none box-border focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
+                type={passShow ? "text" : "password"}
+                name="password"
+                placeholder="enter your password"
+                value={formData.password}
                 onChange={handleChange}
                 required
-                autoFocus
               />
-            </div>
 
-            <div style={styles.inputGroup}>
-              <label style={styles.label}>Username</label>
-              <input
-                style={styles.input}
-                type="text"
-                name="username"
-                placeholder="Jone"
-                value={formData.username}
-                onChange={handleChange}
-                required
-                autoFocus
-              />
-            </div>
-
-            <div style={styles.inputGroup}>
-              <label style={styles.label}>Email Address</label>
-              <input
-                style={styles.input}
-                type="email"
-                name="email"
-                placeholder="jone@example.com"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div style={styles.inputGroup}>
-              <label style={styles.label}>Password</label>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
+              <span
+                onClick={() => setPassShow(!passShow)}
+                className="ml-2.5 cursor-pointer"
               >
-                <input
-                  style={styles.input}
-                  type={passShow ? "text" : "password"}
-                  name="password"
-                  placeholder="enter your password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                />
-                <span
-                  onClick={() => setPassShow(!passShow)}
-                  style={{ marginLeft: "10px", cursor: "pointer" }}
-                >
-                  {passShow ? "🙈" : "👁️"}
-                </span>
-              </div>
-            </div>
-
-            <button
-              style={loading ? styles.buttonLoading : styles.button}
-              type="submit"
-              disabled={loading}
-            >
-              {loading ? "Sending..." : "Submit →"}
-            </button>
-            <div style={{ marginTop: "15px" }}>
-              <span>
-                Already have an account?
-                <Link to="/login" style={{ textDecoration: "underline" }}>
-                  {" "}
-                  Login
-                </Link>
+                {passShow ? "🙈" : "👁️"}
               </span>
             </div>
-          </form>
-        </div>
+          </div>
+
+          {/* Submit Button */}
+          <button
+            className={`w-full p-3 text-white border-none rounded-lg text-base font-semibold mt-2 ${
+              loading
+                ? "bg-[#ccc] cursor-not-allowed"
+                : "bg-[#ff6b35] cursor-pointer hover:bg-orange-600 transition-colors"
+            }`}
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? "Sending..." : "Submit →"}
+          </button>
+
+          {/* Login Link */}
+          <div className="mt-3.75">
+            <span>
+              Already have an account?{" "}
+              <Link to="/login" className="underline hover:text-orange-500">
+                Login
+              </Link>
+            </span>
+          </div>
+        </form>
       </div>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    minHeight: "100vh",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#f0f4f8",
-    fontFamily: "sans-serif",
-  },
-  card: {
-    backgroundColor: "#ffffff",
-    padding: "40px",
-    borderRadius: "16px",
-    boxShadow: "0 4px 24px rgba(0,0,0,0.1)",
-    width: "100%",
-    maxWidth: "420px",
-  },
-  title: {
-    fontSize: "24px",
-    fontWeight: "700",
-    marginBottom: "8px",
-    color: "#1a1a2e",
-    textAlign: "center",
-  },
-  subtitle: {
-    fontSize: "14px",
-    color: "#666",
-    marginBottom: "24px",
-  },
-  inputGroup: {
-    marginBottom: "16px",
-  },
-  label: {
-    display: "block",
-    fontSize: "13px",
-    fontWeight: "600",
-    color: "#444",
-    marginBottom: "6px",
-  },
-  input: {
-    width: "100%",
-    padding: "10px 14px",
-    borderRadius: "8px",
-    border: "1px solid #ddd",
-    fontSize: "14px",
-    outline: "none",
-    boxSizing: "border-box",
-  },
-  button: {
-    width: "100%",
-    padding: "12px",
-    backgroundColor: "#ff6b35",
-    color: "#fff",
-    border: "none",
-    borderRadius: "8px",
-    fontSize: "16px",
-    fontWeight: "600",
-    cursor: "pointer",
-    marginTop: "8px",
-  },
-  buttonLoading: {
-    width: "100%",
-    padding: "12px",
-    backgroundColor: "#ccc",
-    color: "#fff",
-    border: "none",
-    borderRadius: "8px",
-    fontSize: "16px",
-    fontWeight: "600",
-    cursor: "not-allowed",
-    marginTop: "8px",
-  },
-  successMsg: {
-    backgroundColor: "#e6ffed",
-    color: "#2d6a4f",
-    padding: "12px",
-    borderRadius: "8px",
-    marginBottom: "16px",
-    fontSize: "14px",
-  },
-  errorMsg: {
-    backgroundColor: "#ffe6e6",
-    color: "#c0392b",
-    padding: "12px",
-    borderRadius: "8px",
-    marginBottom: "16px",
-    fontSize: "14px",
-  },
 };
 
 export default Register;
