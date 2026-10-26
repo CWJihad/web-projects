@@ -90,7 +90,7 @@ const Register = () => {
         )}
 
         <form onSubmit={handleSubmit}>
-          {/* Full Name */}
+
           <div className="mb-4">
             <label className="block text-[13px] font-semibold text-[#444] mb-1.5">
               Full Name
@@ -108,7 +108,6 @@ const Register = () => {
             />
           </div>
 
-          {/* Username */}
           <div className="mb-4">
             <label className="block text-[13px] font-semibold text-[#444] mb-1.5">
               Username
@@ -125,7 +124,6 @@ const Register = () => {
             />
           </div>
 
-          {/* Email */}
           <div className="mb-4">
             <label className="block text-[13px] font-semibold text-[#444] mb-1.5">
               Email Address
@@ -142,7 +140,6 @@ const Register = () => {
             />
           </div>
 
-          {/* Password */}
           <div className="mb-4">
             <label className="block text-[13px] font-semibold text-[#444] mb-1.5">
               Password
@@ -168,7 +165,7 @@ const Register = () => {
             </div>
           </div>
 
-          {/* Submit Button */}
+
           <button
             className={`w-full p-3 text-white border-none rounded-lg text-base font-semibold mt-2 ${
               loading
@@ -181,7 +178,7 @@ const Register = () => {
             {loading ? "Sending..." : "Submit →"}
           </button>
 
-          {/* Login Link */}
+
           <div className="mt-3.75">
             <span>
               Already have an account?{" "}

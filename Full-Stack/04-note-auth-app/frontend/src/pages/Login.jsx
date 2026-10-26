@@ -87,41 +87,36 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#f0f4f8] font-sans px-4">
 
-      <div className="bg-white p-10 rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.1)] w-full max-w-[420px]">
+      <div className="bg-white p-10 rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.1)] w-full max-w-105">
 
         <h2 className="text-2xl font-bold mb-2 text-[#1a1a2e] text-center">
           Login 👋
         </h2>
 
-        {/* Success Message */}
         {status === "success" && (
           <div className="bg-[#e6ffed] text-[#2d6a4f] p-3 rounded-lg mb-4 text-sm">
             ✅ Login successful.
           </div>
         )}
 
-        {/* Unverified Message */}
         {status === "unverified" && (
           <div className="bg-[#ffe6e6] text-[#c0392b] p-3 rounded-lg mb-4 text-sm">
             ❌ {errorMessage}
           </div>
         )}
 
-        {/* Unauthorized Message */}
         {status === "unauthorized" && (
           <div className="bg-[#ffe6e6] text-[#c0392b] p-3 rounded-lg mb-4 text-sm">
             ❌ {errorMessage}
           </div>
         )}
 
-        {/* User Not Found */}
         {status === "notfound" && (
           <div className="bg-[#e6ffed] text-[#2d6a4f] p-3 rounded-lg mb-4 text-sm">
             👍 {errorMessage}
           </div>
         )}
 
-        {/* General Error */}
         {status === "error" && (
           <div className="bg-[#ffe6e6] text-[#c0392b] p-3 rounded-lg mb-4 text-sm">
             ❌ {errorMessage}
@@ -130,7 +125,6 @@ const Login = () => {
 
         <form onSubmit={handleSubmit}>
 
-          {/* Email Address */}
           <div className="mb-4">
             <label className="block text-[13px] font-semibold text-[#444] mb-1.5">
               Email Address
@@ -148,7 +142,6 @@ const Login = () => {
             />
           </div>
 
-          {/* Password */}
           <div className="mb-4">
             <label className="block text-[13px] font-semibold text-[#444] mb-1.5">
               Password
@@ -173,7 +166,6 @@ const Login = () => {
               </span>
             </div>
 
-            {/* Forgot Password */}
             <div className="mt-2 text-right">
               <Link
                 to="/forgot-password"
@@ -184,7 +176,6 @@ const Login = () => {
             </div>
           </div>
 
-          {/* Submit Button */}
           <button
             className={`w-full p-3 text-white border-none rounded-lg text-base font-semibold mt-2 transition-colors ${
               loading
@@ -197,8 +188,7 @@ const Login = () => {
             {loading ? "Sending..." : "Submit →"}
           </button>
 
-          {/* Register Link */}
-          <div className="mt-[15px]">
+          <div className="mt-3.75">
             <span>
               I don't have an account?{" "}
               <Link
